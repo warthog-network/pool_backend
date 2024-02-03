@@ -5,6 +5,15 @@
 #include "general/hex.hpp"
 #include "httplib.h"
 #include "sha2.hpp"
+inline auto double_to_string(double d)
+{
+    std::string s;
+    s.resize(35);
+    auto n{std::snprintf(s.data(),s.size(),"%.20e",d)};
+    s.resize(n);
+    return s;
+}
+
 
 inline Hash sha256(std::span<const uint8_t> s) {
   Hash res;
@@ -56,7 +65,7 @@ int main() {
             try {
               auto headerhex = req.path_params.at("headerhex");
               auto header{parse_header(headerhex)};
-              auto s{std::to_string(score(header))};
+              auto s{double_to_string(score(header))};
               res.set_content(s, "text/plain");
             } catch (std::exception &e) {
               res.set_content("", "text/plain");
