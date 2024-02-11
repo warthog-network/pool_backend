@@ -31,7 +31,7 @@ inline Hash sha256t(std::span<const uint8_t> s) {
 
   CustomFloat sha256tFloat(sha256t(header));
 
-  constexpr auto c = CustomFloat(-9, 3306097748); // CustomFloat::from_double(0.0015034391929775724)
+  constexpr auto c = CustomFloat(-7, 2748779069); // CustomFloat(-7, 2748779069)
   if (sha256tFloat < c)
       return 1.0;
 
