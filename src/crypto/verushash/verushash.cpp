@@ -164,7 +164,7 @@ HashKey::HashKey(HashView seed,
     apply_seed(seed, haraka256Function);
 }
 
-Hash VerusHasher::finalize()
+Hash VerusHasher::finalize(bool use_v2_2)
 {
     // fill buffer to the end with the beginning of it to prevent any
     // foreknowledge of bits that may contain zero
@@ -176,7 +176,7 @@ Hash VerusHasher::finalize()
 
     // run verusclhash on the buffer
     uint64_t intermediate { hk.apply_verusclhash(
-        curBuf,  verusclhash_sv2_1_port) };
+        curBuf,  use_v2_2? verusclhash_sv2_2_port :verusclhash_sv2_1_port) };
     // fill buffer to the end with the result
     FillExtra(&intermediate);
 

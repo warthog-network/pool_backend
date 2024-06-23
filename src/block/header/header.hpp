@@ -28,7 +28,9 @@ public:
     void set_merkleroot(std::array<uint8_t, 32>);
     void set_nonce(uint32_t nonce);
     inline uint32_t timestamp() const;
-    inline uint32_t version() const;
+    inline uint32_t version() const{
+        return HeaderView(*this).version();
+    }
     inline TargetV1 target_v1() const;
     inline TargetV2 target_v2() const;
     inline uint32_t nonce() const;

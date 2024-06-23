@@ -1,5 +1,6 @@
 #include "block/header/difficulty.hpp"
 #include "block/header/header.hpp"
+#include "block/header/view.hpp"
 #include "block/header/custom_float.hpp"
 #include "crypto/verushash/verushash.hpp"
 #include "general/hex.hpp"
@@ -26,7 +27,8 @@ inline Hash sha256t(std::span<const uint8_t> s) {
 }
 
 [[nodiscard]] double score(const Header &header) {
-  auto verusHashV2_1 { verus_hash(header) };
+    auto version{header.version()};
+  auto verusHashV2_1 { verus_hash(header, version != 2) };
   auto verusFloat { CustomFloat(verusHashV2_1) };
 
   CustomFloat sha256tFloat(sha256t(header));
